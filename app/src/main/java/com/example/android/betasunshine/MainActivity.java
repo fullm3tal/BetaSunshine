@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.betasunshine.Utility.NetworkUtils;
@@ -18,13 +19,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String URL_WEATHER = "https://andfun-weather.udacity.com/staticweather";
     TextView textView;
+    CustomAdapter customAdapter;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView=(TextView)findViewById(R.id.text_view_weather);
-
+        listView=(ListView)findViewById(R.id.list_item);
         new WeatherTask().execute(URL_WEATHER);
     }
 
@@ -51,10 +53,8 @@ public class MainActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            int length=finalData.size();
-            for(int i=0;i<length;i++){
-                textView.append(finalData.get(i)+"\n\n");
-            }
+            customAdapter=new CustomAdapter(MainActivity.this,finalData);
+                    listView.setAdapter(customAdapter);
         }
     }
 
