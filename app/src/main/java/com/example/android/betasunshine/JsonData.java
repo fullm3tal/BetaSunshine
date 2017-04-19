@@ -30,7 +30,7 @@ public class JsonData {
              String min=jsonTempObject.getString("min");
              String max=jsonTempObject.getString("max");
              String pressure=jsonListObject.getString("pressure");
-             String description=jsonListObject.getString("description");
+             String description=jsonWeatherObject.getString("description");
              String jsonParsedString =min+" "+max+" "+pressure+" "+description;
              jsonArrayList.add(i,jsonParsedString);
          }
