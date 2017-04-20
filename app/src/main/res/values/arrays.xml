@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pref_array_temp_label">
+        <item>@string/pref_temp_celcius_label</item>
+        <item>@string/pref_temp_fahrenheit_label</item>
+
+    </array>
+
+    <array name="pref_array_temp_value">
+    <item>@string/pref_temp_celcius_value</item>
+    <item>@string/pref_temp_fahrenheit_value</item>
+    </array>
+
+</resources>

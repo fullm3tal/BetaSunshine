@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Beta Sunshine</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="pref_temp_label">Temperature Units</string>
+    <string name="pref_temp_celcius_label">Celcius</string>
+    <string name="pref_temp_fahrenheit_label">Fahrenheit</string>
+
+    <string name="pref_temp_key" translatable="false">units</string>
+    <string name="pref_temp_celcius_value" translatable="false">celcius</string>
+    <string name="pref_temp_fahrenheit_value" translatable="false">fahrenheit</string>
+
 </resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:title="Location"
+        android:inputType="text"
+        android:key="location"
+        android:singleLine="true"
+        android:defaultValue="Mountain View, CA 94843"/>
+
+   <ListPreference
+      android:title="@string/pref_temp_label"
+       android:entries="@array/pref_array_temp_label"
+       android:entryValues="@array/pref_array_temp_value"
+       android:defaultValue="@string/pref_temp_celcius_label"
+       android:key="@string/pref_temp_key" />
+
+</PreferenceScreen>

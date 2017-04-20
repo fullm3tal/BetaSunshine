@@ -10,11 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.betasunshine.Utility.NetworkUtils;
 
@@ -59,14 +63,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             protected void onStartLoading() {
                 if (mWeatherData != null) {
                     deliverResult(mWeatherData);
-                }
-                else
+                } else
 
                 {
                     progressBar.setVisibility(View.VISIBLE);
                     forceLoad();
                 }
-
 
             }
 
@@ -96,6 +98,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         };
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflator = getMenuInflater();
+        inflator.inflate(R.menu.weather_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.settings_menu:
+                Intent intent = new Intent(MainActivity.this, SettingsActvity.class);
+                startActivity(intent);
+                break;
+            default:
+                Toast.makeText(this, "Invalid option Selected", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<String>> loader, ArrayList<String> data) {
