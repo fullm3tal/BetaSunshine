@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="pref_array_temp_label">
-        <item>@string/pref_temp_celcius_label</item>
-        <item>@string/pref_temp_fahrenheit_label</item>
+    <array name="pref_array_temp_options">
+        <item>@string/pref_temp_metric_label</item>
+        <item>@string/pref_temp_imperial_label</item>
 
     </array>
 
     <array name="pref_array_temp_value">
-    <item>@string/pref_temp_celcius_value</item>
-    <item>@string/pref_temp_fahrenheit_value</item>
+    <item>@string/pref_temp_metric_value</item>
+    <item>@string/pref_temp_imperial_value</item>
     </array>
 
 </resources>

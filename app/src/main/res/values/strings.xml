@@ -2,12 +2,16 @@
     <string name="app_name">Beta Sunshine</string>
     <string name="action_settings">Settings</string>
 
-    <string name="pref_temp_label">Temperature Units</string>
-    <string name="pref_temp_celcius_label">Celcius</string>
-    <string name="pref_temp_fahrenheit_label">Fahrenheit</string>
+    <string name="pref_location_key">location</string>
+    <string name="pref_location_default">Mountain View, CA 94843</string>
+    <string name="pref_location_label">Location</string>
 
-    <string name="pref_temp_key" translatable="false">units</string>
-    <string name="pref_temp_celcius_value" translatable="false">celcius</string>
-    <string name="pref_temp_fahrenheit_value" translatable="false">fahrenheit</string>
+    <string name="pref_units_label">Temperature Units</string>
+    <string name="pref_temp_metric_label">Metric</string>
+    <string name="pref_temp_imperial_label">Imperial</string>
+
+    <string name="pref_units_key" translatable="false">units</string>
+    <string name="pref_temp_metric_value" translatable="false">metric</string>
+    <string name="pref_temp_imperial_value" translatable="false">imperial</string>
 
 </resources>

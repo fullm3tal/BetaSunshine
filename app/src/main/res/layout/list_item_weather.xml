@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Weather Data"
+        android:textSize="24sp"
         android:id="@+id/tv_weather"
         android:padding="16dp"/>
 

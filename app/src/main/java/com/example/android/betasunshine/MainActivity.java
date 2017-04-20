@@ -1,12 +1,14 @@
 package com.example.android.betasunshine;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.betasunshine.Utility.NetworkUtils;
+import com.example.android.betasunshine.data.PreferencesSunshine;
 
 import org.json.JSONException;
 
@@ -28,13 +31,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<String>>, CustomAdapter.ListViewItemListener {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<String>>, CustomAdapter.ListViewItemListener,SharedPreferences.OnSharedPreferenceChangeListener {
 
-    public static final String URL_WEATHER = "https://andfun-weather.udacity.com/staticweather";
+
     CustomAdapter customAdapter;
     RecyclerView recyclerView;
     ProgressBar progressBar;
     public static final int LOADER_ID = 22;
+    boolean PREFERENCE_HAS_BEEN_UPDATED=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recyclerView.setAdapter(customAdapter);
 
         getSupportLoaderManager().initLoader(LOADER_ID, null, MainActivity.this);
+        android.preference.PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
 
     }
 
@@ -76,11 +81,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             public ArrayList<String> loadInBackground() {
                 Log.v("loader", "callbacks");
                 ArrayList<String> finalArrayData = new ArrayList<>();
-                URL url = NetworkUtils.buildUrl(URL_WEATHER);
+                String locationUrl= PreferencesSunshine.getPreferredLocation(MainActivity.this);
+                URL url = NetworkUtils.buildUrl(locationUrl);
 
                 try {
                     String data = NetworkUtils.getJsonResponse(url);
-                    finalArrayData = JsonData.getStringFromJson(data);
+                    finalArrayData = JsonData.getStringFromJson(MainActivity.this,data);
                 } catch (IOException e) {
                     e.printStackTrace();
                     return null;
@@ -137,5 +143,26 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Intent detailActivityIntent = new Intent(MainActivity.this, DetailActivity.class);
         detailActivityIntent.putExtra(Intent.EXTRA_TEXT, data);
         startActivity(detailActivityIntent);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        PREFERENCE_HAS_BEEN_UPDATED=true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(PREFERENCE_HAS_BEEN_UPDATED){
+            getSupportLoaderManager().restartLoader(LOADER_ID,null,this);
+            PREFERENCE_HAS_BEEN_UPDATED=false;
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        android.preference.PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
     }
 }
