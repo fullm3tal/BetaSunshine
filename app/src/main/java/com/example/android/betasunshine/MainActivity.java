@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     RecyclerView recyclerView;
     ProgressBar progressBar;
     public static final int LOADER_ID = 22;
-    boolean PREFERENCE_HAS_BEEN_UPDATED=true;
+    public static boolean PREFERENCE_HAS_BEEN_UPDATED=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
