@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,15 +20,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailActivity"
-            android:parentActivityName=".MainActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".DetailActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".SettingsActvity"
+        <activity
+            android:name=".SettingsActvity"
             android:label="@string/action_settings"
             android:parentActivityName=".MainActivity">
 
         </activity>
+
+        <provider
+            android:name="com.example.android.betasunshine.data.WeatherContentProvider"
+            android:authorities="com.example.android.betasunshine"
+            android:exported="false" />
     </application>
 
 </manifest>

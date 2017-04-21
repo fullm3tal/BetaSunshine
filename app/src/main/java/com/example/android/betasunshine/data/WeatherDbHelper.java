@@ -3,6 +3,7 @@ package com.example.android.betasunshine.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by dakaku on 20/4/17.
@@ -26,6 +27,7 @@ public class WeatherDbHelper extends SQLiteOpenHelper{
                 WeatherContract.WeatherEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                 WeatherContract.WeatherEntry.COLUMN_PRESSURE + " REAL NOT NULL " + ");";
         db.execSQL(DATABASE_CREATE_TABLE);
+        Log.v("TABLE ",DATABASE_CREATE_TABLE);
 
     }
 

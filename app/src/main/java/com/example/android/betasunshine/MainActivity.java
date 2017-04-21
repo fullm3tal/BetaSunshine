@@ -2,6 +2,7 @@ package com.example.android.betasunshine;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.android.betasunshine.Utility.NetworkUtils;
 import com.example.android.betasunshine.data.PreferencesSunshine;
+import com.example.android.betasunshine.data.WeatherDbHelper;
 
 import org.json.JSONException;
 
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<String>>, CustomAdapter.ListViewItemListener,SharedPreferences.OnSharedPreferenceChangeListener {
 
-
+    private SQLiteDatabase db;
     CustomAdapter customAdapter;
     RecyclerView recyclerView;
     ProgressBar progressBar;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.rv_list);
 
+        WeatherDbHelper weatherDbHelper=new WeatherDbHelper(MainActivity.this);
+        db=weatherDbHelper.getWritableDatabase();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
