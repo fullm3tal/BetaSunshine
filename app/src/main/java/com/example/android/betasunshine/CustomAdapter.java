@@ -1,6 +1,7 @@
 package com.example.android.betasunshine;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.android.betasunshine.data.WeatherContract;
+
 import java.util.ArrayList;
 
 /**
@@ -17,15 +20,18 @@ import java.util.ArrayList;
  */
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHolder> {
-    ArrayList<String> mWeatherArrayList;
+
+    Cursor mCursor;
+    Context mContext;
     ListViewItemListener mListViewItemListener;
 
-    public CustomAdapter(ListViewItemListener listener) {
-        mListViewItemListener=listener;
+    public CustomAdapter(Context context, ListViewItemListener listener) {
+        mListViewItemListener = listener;
+        mContext = context;
     }
 
     interface ListViewItemListener {
-        public void onListItemClick(String data);
+        public void onListItemClick(long date);
     }
 
     @Override
@@ -42,14 +48,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHol
     @Override
     public void onBindViewHolder(WeatherHolder holder, int position) {
 
-        String weatherOfTheDay = mWeatherArrayList.get(position);
+        mCursor.moveToPosition(position);
+        String date = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATE));
+        String max = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MAX));
+        String min = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MIN));
+        String description = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DESCRIPTION));
+        String pressure = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_PRESSURE));
+
+        String weatherOfTheDay = date + " " + max + " " + min + " " + description + " " + pressure;
         holder.textView.setText(weatherOfTheDay);
     }
 
     @Override
     public int getItemCount() {
-        if (mWeatherArrayList == null) return 0;
-        return mWeatherArrayList.size();
+        if (mCursor == null) return 0;
+        return mCursor.getCount();
     }
 
 
@@ -64,14 +77,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHol
 
         @Override
         public void onClick(View v) {
-            int getItemPosition=getAdapterPosition();
-            String weatherForDay=mWeatherArrayList.get(getItemPosition);
-            mListViewItemListener.onListItemClick(weatherForDay);
+           int adapterPosition=getAdapterPosition();
+            mCursor.moveToPosition(adapterPosition);
+            long date=mCursor.getLong(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATE));
+            mListViewItemListener.onListItemClick(date);
         }
     }
 
-public void setWeatherData(ArrayList<String> data){
-    mWeatherArrayList=data;
-    notifyDataSetChanged();
-}
+
+    public void swapCursor(Cursor newCursor) {
+        mCursor = newCursor;
+        notifyDataSetChanged();
+    }
 }

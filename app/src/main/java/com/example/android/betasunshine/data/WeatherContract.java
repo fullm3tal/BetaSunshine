@@ -20,10 +20,19 @@ public class WeatherContract {
         public static final Uri CONTENT_URI=BASE_CONTENT_URI.buildUpon().appendPath(PATHS).build();
 
         public static final String TABLE_NAME = "weather";
+        public static final String COLUMN_DATE="date";
         public static final String COLUMN_MAX = "max";
         public static final String COLUMN_MIN = "min";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_PRESSURE = "pressure";
 
+        public static String getcurrentdate(){
+            long millis = System.currentTimeMillis() % 1000;
+            return WeatherEntry.COLUMN_DATE+ " >= "+millis;
+        }
+
+        public static Uri buildUriWithDate(long date){
+            return CONTENT_URI.buildUpon().appendPath(Long.toString(date)).build();
+        }
     }
 }
