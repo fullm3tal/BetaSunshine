@@ -36,6 +36,9 @@
             android:name="com.example.android.betasunshine.data.WeatherContentProvider"
             android:authorities="com.example.android.betasunshine"
             android:exported="false" />
+
+        <service android:name=".WeatherService"
+            android:exported="false"/>
     </application>
 
 </manifest>

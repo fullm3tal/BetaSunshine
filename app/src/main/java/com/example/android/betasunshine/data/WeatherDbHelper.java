@@ -12,7 +12,7 @@ import android.util.Log;
 public class WeatherDbHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "weatherDatabase.db";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 7;
 
     public WeatherDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

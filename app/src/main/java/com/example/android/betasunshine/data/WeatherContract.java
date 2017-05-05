@@ -10,9 +10,8 @@ import android.provider.BaseColumns;
 public class WeatherContract {
 
     public static final String AUTHORITY="com.example.android.betasunshine";
-    public static final Uri BASE_CONTENT_URI=Uri.parse("content// "+AUTHORITY);
+    public static final Uri BASE_CONTENT_URI=Uri.parse("content://"+AUTHORITY);
     public  static final String PATHS="weather";
-
 
 
     public static final class WeatherEntry implements BaseColumns {

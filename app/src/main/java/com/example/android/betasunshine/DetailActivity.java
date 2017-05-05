@@ -18,12 +18,19 @@ import android.widget.Toast;
 
 import com.example.android.betasunshine.data.WeatherContract;
 
-public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    TextView textViewdate;
+public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+    @BindView(R.id.textview_date)
+    TextView textViewDate;
+    @BindView(R.id.textview_max)
     TextView textViewMax;
+    @BindView(R.id.textview_min)
     TextView textViewMin;
+    @BindView(R.id.textview_description)
     TextView textViewDescription;
+    @BindView(R.id.textview_pressure)
     TextView textViewPressure;
     Uri mUri;
     public static final int DETAIL_LOADER_ID = 479;
@@ -35,20 +42,10 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        Intent receivedDataIntent = getIntent();
-        mUri = receivedDataIntent.getData();
-
-        textViewdate = (TextView) findViewById(R.id.textview_date);
-        textViewMax = (TextView) findViewById(R.id.textview_max);
-        textViewMin = (TextView) findViewById(R.id.textview_min);
-        textViewDescription = (TextView) findViewById(R.id.textview_description);
-        textViewPressure = (TextView) findViewById(R.id.textview_pressure);
+        ButterKnife.bind(this);
+        enableActionBar();
+        getIntentFromMainActivity();
+        startDetailActivityLoader();
 
     }
 
@@ -101,13 +98,13 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         if (!cursorHasValidData) {
             return;
         }
-       long detailDate=data.getLong(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATE));
-        String detailHigh=data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MAX));
-        String detailLow=data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MIN));
-        String detailDescription=data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DESCRIPTION));
-        String detailPressure=data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_PRESSURE));
+        long detailDate = data.getLong(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATE));
+        String detailHigh = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MAX));
+        String detailLow = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MIN));
+        String detailDescription = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DESCRIPTION));
+        String detailPressure = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_PRESSURE));
 
-        textViewdate.setText(String.valueOf(detailDate));
+        textViewDate.setText(String.valueOf(detailDate));
         textViewMax.setText(detailHigh);
         textViewMin.setText(detailLow);
         textViewDescription.setText(detailDescription);
@@ -118,5 +115,21 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    private void startDetailActivityLoader() {
+        getSupportLoaderManager().initLoader(DETAIL_LOADER_ID, null, this);
+    }
+
+    private void getIntentFromMainActivity() {
+        Intent receivedDataIntent = getIntent();
+        mUri = receivedDataIntent.getData();
+    }
+
+    private void enableActionBar() {
+        ActionBar actionBar = this.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 }

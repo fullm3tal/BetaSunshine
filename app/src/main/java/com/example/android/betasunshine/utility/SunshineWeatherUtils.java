@@ -1,4 +1,4 @@
-package com.example.android.betasunshine.Utility;
+package com.example.android.betasunshine.utility;
 
 import android.content.Context;
 
@@ -12,14 +12,14 @@ public class SunshineWeatherUtils {
 
     public static String formatTemp(Context context, double temp) {
         String tempInString;
-        long tempertaure = Math.round(temp);
+        long temperature = Math.round(temp);
         if (PreferencesSunshine.isMetric(context)) {
-            tempInString = String.valueOf(tempertaure);
+            tempInString = String.valueOf(temperature);
             return tempInString + "\u2103";
 
         } else {
 
-            double temptoFahrenheit = (tempertaure * 1.8) + 32;
+            double temptoFahrenheit = (temperature * 1.8) + 32;
             long tempFahrenheit = Math.round(temptoFahrenheit);
             tempInString = String.valueOf(tempFahrenheit);
             return tempInString + "\u2109";

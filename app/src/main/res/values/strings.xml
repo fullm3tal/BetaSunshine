@@ -14,4 +14,6 @@
     <string name="pref_temp_metric_value" translatable="false">metric</string>
     <string name="pref_temp_imperial_value" translatable="false">imperial</string>
 
+    <string name="no_internet">No internet connection, please try again later.</string>
+
 </resources>

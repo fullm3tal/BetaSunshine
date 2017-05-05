@@ -1,10 +1,12 @@
 package com.example.android.betasunshine;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +17,15 @@ import com.example.android.betasunshine.data.WeatherContract;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by dakaku on 19/4/17.
  */
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHolder> {
-
+    public final String LOG_TAG = CustomAdapter.this.getClass().getSimpleName();
     Cursor mCursor;
     Context mContext;
     ListViewItemListener mListViewItemListener;
@@ -31,7 +36,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHol
     }
 
     interface ListViewItemListener {
-        public void onListItemClick(long date);
+        void onListItemClick(long date);
     }
 
     @Override
@@ -47,16 +52,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHol
 
     @Override
     public void onBindViewHolder(WeatherHolder holder, int position) {
-
-        mCursor.moveToPosition(position);
-        String date = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATE));
-        String max = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MAX));
-        String min = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MIN));
-        String description = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DESCRIPTION));
-        String pressure = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_PRESSURE));
-
-        String weatherOfTheDay = date + " " + max + " " + min + " " + description + " " + pressure;
-        holder.textView.setText(weatherOfTheDay);
+        populatingViewsWithData(holder, position);
     }
 
     @Override
@@ -67,19 +63,20 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHol
 
 
     public class WeatherHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @BindView(R.id.tv_weather)
         TextView textView;
 
         public WeatherHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.tv_weather);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-           int adapterPosition=getAdapterPosition();
+            int adapterPosition = getAdapterPosition();
             mCursor.moveToPosition(adapterPosition);
-            long date=mCursor.getLong(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATE));
+            long date = mCursor.getLong(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATE));
             mListViewItemListener.onListItemClick(date);
         }
     }
@@ -88,5 +85,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHol
     public void swapCursor(Cursor newCursor) {
         mCursor = newCursor;
         notifyDataSetChanged();
+    }
+
+    private void populatingViewsWithData(WeatherHolder holder, int position) {
+        mCursor.moveToPosition(position);
+        String date = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATE));
+        String max = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MAX));
+        String min = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MIN));
+        String description = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DESCRIPTION));
+        String pressure = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_PRESSURE));
+        Log.v(LOG_TAG,"Async task Loader called, Custom Adapter");
+        String weatherOfTheDay = date + " " + max + " " + min + " " + description + " " + pressure;
+        holder.textView.setText(weatherOfTheDay);
     }
 }

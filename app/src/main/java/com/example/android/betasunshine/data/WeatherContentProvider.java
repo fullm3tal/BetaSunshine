@@ -78,7 +78,6 @@ public class WeatherContentProvider extends ContentProvider {
                 try {
 
                     for (ContentValues contentValues : values) {
-//                        long weatherDate=contentValues.getAsLong(WeatherContract.WeatherEntry.COLUMN_DATE);
                         long id = db.insert(WeatherContract.WeatherEntry.TABLE_NAME, null, contentValues);
                         if (id != -1) {
                             rowsInserted++;

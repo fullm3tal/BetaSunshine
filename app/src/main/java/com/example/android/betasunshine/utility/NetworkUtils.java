@@ -1,4 +1,4 @@
-package com.example.android.betasunshine.Utility;
+package com.example.android.betasunshine.utility;
 
 import android.net.Uri;
 

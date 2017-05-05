@@ -1,10 +1,10 @@
-package com.example.android.betasunshine;
+package com.example.android.betasunshine.utility;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.android.betasunshine.Utility.SunshineWeatherUtils;
+import com.example.android.betasunshine.utility.SunshineWeatherUtils;
 import com.example.android.betasunshine.data.WeatherContract;
 
 import org.json.JSONArray;
@@ -13,7 +13,6 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
