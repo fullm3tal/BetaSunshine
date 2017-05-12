@@ -18,5 +18,4 @@
         android:id="@+id/pb_indicator"
         android:visibility="invisible" />
 
-
 </FrameLayout>

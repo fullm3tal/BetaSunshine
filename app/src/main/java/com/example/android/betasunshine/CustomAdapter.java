@@ -11,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.betasunshine.data.PreferencesSunshine;
 import com.example.android.betasunshine.data.WeatherContract;
+import com.example.android.betasunshine.utility.SunshineWeatherUtils;
 
 import java.util.ArrayList;
 
@@ -29,6 +32,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHol
     Cursor mCursor;
     Context mContext;
     ListViewItemListener mListViewItemListener;
+    public static final int VIEW_TYPE_TODAY=0;
+    public static final int VIEW_TYPE_FUTURE=1;
 
     public CustomAdapter(Context context, ListViewItemListener listener) {
         mListViewItemListener = listener;
@@ -41,7 +46,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHol
 
     @Override
     public WeatherHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layoutForId = R.layout.list_item_weather;
+        int layoutForId;
+        switch (viewType){
+            case VIEW_TYPE_TODAY:
+                layoutForId = R.layout.list_today_forecast;
+                break;
+            case VIEW_TYPE_FUTURE:
+                layoutForId = R.layout.list_item_weather;
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown View");
+        }
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
@@ -63,8 +78,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHol
 
 
     public class WeatherHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.tv_weather)
-        TextView textView;
+
+        @BindView(R.id.tv_weather_date)
+        TextView textViewDate;
+        @BindView(R.id.tv_weather_description)
+        TextView textViewDescription;
+        @BindView(R.id.tv_weather_max)
+        TextView textViewMax;
+        @BindView(R.id.tv_weather_min)
+        TextView textViewMin;
+        @BindView(R.id.tv_weather_image)
+        ImageView imageViewWeather;
+
 
         public WeatherHolder(View itemView) {
             super(itemView);
@@ -89,13 +114,42 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.WeatherHol
 
     private void populatingViewsWithData(WeatherHolder holder, int position) {
         mCursor.moveToPosition(position);
-        String date = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATE));
+        int resId;
+        Log.v("Inside Custom adapter  ","Image Display ");
+        String description = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DESCRIPTION));
+        int viewType=getItemViewType(position);
+        switch (viewType){
+            case VIEW_TYPE_TODAY:
+                resId= SunshineWeatherUtils.getLargeImageIdForWeather(description);
+                break;
+            case VIEW_TYPE_FUTURE:
+                resId=SunshineWeatherUtils.getSmallImageIdForWeather(description);
+                break;
+            default:
+                throw new UnsupportedOperationException("unknown Id");
+        }
+
+        long date = mCursor.getLong(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATE));
+        String convertedDate = PreferencesSunshine.getDatefromMillis(date);
         String max = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MAX));
         String min = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MIN));
-        String description = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DESCRIPTION));
-        String pressure = mCursor.getString(mCursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_PRESSURE));
-        Log.v(LOG_TAG,"Async task Loader called, Custom Adapter");
-        String weatherOfTheDay = date + " " + max + " " + min + " " + description + " " + pressure;
-        holder.textView.setText(weatherOfTheDay);
+
+
+        holder.imageViewWeather.setImageResource(resId);
+        holder.textViewDate.setText(convertedDate);
+        holder.textViewDescription.setText(description);
+        holder.textViewMax.setText(max);
+        holder.textViewMin.setText(min);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position==0){
+            return VIEW_TYPE_TODAY;
+        }
+        else
+        {
+            return VIEW_TYPE_FUTURE;
+        }
     }
 }

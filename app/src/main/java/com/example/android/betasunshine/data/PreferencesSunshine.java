@@ -6,6 +6,9 @@ import android.preference.PreferenceManager;
 
 import com.example.android.betasunshine.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by dakaku on 20/4/17.
  */
@@ -37,5 +40,12 @@ public class PreferencesSunshine {
             preferredBoolValue=false;
         }
         return preferredBoolValue;
+    }
+
+    public static String getDatefromMillis(long timeInMillis){
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("MMM dd yyyy");
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTimeInMillis(timeInMillis);
+        return  simpleDateFormat.format(calendar.getTime());
     }
 }

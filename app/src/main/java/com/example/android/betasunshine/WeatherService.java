@@ -28,6 +28,6 @@ public class WeatherService extends IntentService {
         String action=  intent.getAction();
         Log.v("LOG_TAG","inside onStartCommand");
         PerformTasks.setUpTasks(this,action);
-
+          stopSelf();
     }
 }

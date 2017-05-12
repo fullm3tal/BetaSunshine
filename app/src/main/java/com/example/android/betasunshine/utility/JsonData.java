@@ -64,12 +64,14 @@ public class JsonData {
             String convertedTempHigh= SunshineWeatherUtils.formatTemp(context,high);
             String pressure = jsonListObject.getString("pressure");
             String description = jsonWeatherObject.getString("description");
+            String humidity=jsonListObject.getString("humidity")+"%";
 
             contentValues.put(WeatherContract.WeatherEntry.COLUMN_DATE,millisDate);
             contentValues.put(WeatherContract.WeatherEntry.COLUMN_MAX,convertedTempHigh);
             contentValues.put(WeatherContract.WeatherEntry.COLUMN_MIN,convertedTempLow);
             contentValues.put(WeatherContract.WeatherEntry.COLUMN_DESCRIPTION,description);
             contentValues.put(WeatherContract.WeatherEntry.COLUMN_PRESSURE,pressure);
+            contentValues.put(WeatherContract.WeatherEntry.COLUMN_HUMIDITY,humidity);
 
             weatherContentValues[i]=contentValues;
         }

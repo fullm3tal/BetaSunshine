@@ -15,9 +15,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.betasunshine.data.WeatherContract;
@@ -36,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static boolean PREFERENCE_HAS_BEEN_UPDATED = false;
     public static final String[] PROJECTION_CONSTANTS = {WeatherContract.WeatherEntry.COLUMN_DATE,
             WeatherContract.WeatherEntry.COLUMN_MAX, WeatherContract.WeatherEntry.COLUMN_MIN,
-            WeatherContract.WeatherEntry.COLUMN_DESCRIPTION, WeatherContract.WeatherEntry.COLUMN_PRESSURE};
+            WeatherContract.WeatherEntry.COLUMN_DESCRIPTION};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             case LOADER_ID:
                 Log.v(LOG_TAG,"Async task Loader, onCreate Loader");
                 String sortBy = WeatherContract.WeatherEntry.COLUMN_DATE + " ASC ";
-                String selection = WeatherContract.WeatherEntry.getcurrentdate();
+                String selection = WeatherContract.WeatherEntry.getCurrentDate();
                 return new CursorLoader(MainActivity.this, WeatherContract.WeatherEntry.CONTENT_URI, PROJECTION_CONSTANTS, selection, null, sortBy);
             default:
                 throw new RuntimeException("LOADER not implemented" + loaderId);

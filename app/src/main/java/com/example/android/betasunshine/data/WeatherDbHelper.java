@@ -12,7 +12,7 @@ import android.util.Log;
 public class WeatherDbHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "weatherDatabase.db";
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 9;
 
     public WeatherDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -27,7 +27,8 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
                 WeatherContract.WeatherEntry.COLUMN_MAX + " TEXT NOT NULL, " +
                 WeatherContract.WeatherEntry.COLUMN_MIN + " TEXT NOT NULL, " +
                 WeatherContract.WeatherEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
-                WeatherContract.WeatherEntry.COLUMN_PRESSURE + " TEXT NOT NULL " + ");";
+                WeatherContract.WeatherEntry.COLUMN_PRESSURE + " TEXT NOT NULL, " +
+                WeatherContract.WeatherEntry.COLUMN_HUMIDITY + " TEXT NOT NULL " + ");";
         db.execSQL(DATABASE_CREATE_TABLE);
         Log.v("TABLE ", DATABASE_CREATE_TABLE);
 

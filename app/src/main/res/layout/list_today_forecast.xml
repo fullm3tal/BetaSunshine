@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:background="#03A9F4">
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/horizontal_middle"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_editor_absoluteX="192dp"
+        app:layout_editor_absoluteY="0dp"/>
+
+    <TextView
+        android:id="@+id/tv_weather_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_weather_image"
+        tools:text="Today's Date"
+        android:textColor="#FFFFFF"/>
+
+    <ImageView
+        android:id="@+id/tv_weather_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/horizontal_middle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@drawable/art_clouds" />
+
+    <TextView
+        android:id="@+id/tv_weather_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="@id/tv_weather_image"
+        app:layout_constraintRight_toRightOf="@id/tv_weather_image"
+        app:layout_constraintTop_toBottomOf="@id/tv_weather_image"
+        tools:text="Today's Descrption"
+        android:textColor="#FFFFFF"/>
+
+    <TextView
+        android:id="@+id/tv_weather_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="72dp"
+        app:layout_constraintLeft_toRightOf="@id/horizontal_middle"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_weather_image"
+        app:layout_constraintBottom_toBottomOf="@id/tv_weather_image"
+        tools:text="Max "
+        android:textColor="#FFFFFF"/>
+
+    <TextView
+        android:id="@+id/tv_weather_min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="24dp"
+        app:layout_constraintLeft_toLeftOf="@id/tv_weather_max"
+        app:layout_constraintRight_toRightOf="@id/tv_weather_max"
+        app:layout_constraintTop_toBottomOf="@id/tv_weather_max"
+        tools:text="MIN"
+        android:textColor="#FFFFFF"/>
+
+
+</android.support.constraint.ConstraintLayout>

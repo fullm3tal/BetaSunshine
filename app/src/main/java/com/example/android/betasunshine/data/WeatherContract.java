@@ -24,8 +24,9 @@ public class WeatherContract {
         public static final String COLUMN_MIN = "min";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_PRESSURE = "pressure";
+        public static final String COLUMN_HUMIDITY = "humidity";
 
-        public static String getcurrentdate(){
+        public static String getCurrentDate(){
             long millis = System.currentTimeMillis() % 1000;
             return WeatherEntry.COLUMN_DATE+ " >= "+millis;
         }

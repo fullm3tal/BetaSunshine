@@ -1,5 +1,6 @@
 package com.example.android.betasunshine;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.preference.CheckBoxPreference;
@@ -65,6 +66,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Preference p = findPreference(key);
         if (null != p) {
+            Intent intent=new Intent(getActivity(),WeatherService.class);
+            intent.setAction(PerformTasks.LOAD_WEATHER_NETWORK);
+            getActivity().startService(intent);
             if (!(p instanceof CheckBoxPreference)) {
                 String prefValue = sharedPreferences.getString(p.getKey(), "");
                 setPreferenceSummary(p, prefValue);
