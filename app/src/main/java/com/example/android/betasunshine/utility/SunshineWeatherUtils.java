@@ -34,26 +34,29 @@ public class SunshineWeatherUtils {
 
         switch (weatherDescription){
 
-            case "Light Rain":
+            case "light rain":
                 return R.drawable.art_light_rain;
-            case "Moderate Rain":
+            case "moderate rain":
+            case "very heavy rain":
+            case "heavy intensity rain":
                 return R.drawable.art_rain;
-            case "Clear":
+            case "sky is clear":
                 return R.drawable.art_clear;
-            case "Scattered Clouds":
+            case "scattered clouds":
                 return R.drawable.art_light_clouds;
-            case "Broken Clouds":
+            case "broken clouds":
+            case "overcast clouds":
                 return R.drawable.art_clouds;
-            case "Light Snow":
-            case "Heavy Snow":
-            case "Snow":
+            case "light snow":
+            case "heavy snow":
+            case "snow":
                 return R.drawable.art_snow;
-            case "Fog":
+            case "fog":
                 return R.drawable.art_fog;
-            case "Storm":
-            case "Sleet":
-            case "Tropical Storm":
-            case "Hurricane":
+            case "storm":
+            case "sleet":
+            case "tropical storm":
+            case "hurricane":
                 return R.drawable.art_storm;
             default:
                 Log.v("Unknown Image ","resource");
@@ -65,25 +68,28 @@ public class SunshineWeatherUtils {
 
         switch (weatherDescription){
 
-            case "Light Rain":
+            case "light rain":
                 return R.drawable.ic_light_rain;
-            case "Moderate Rain":
+            case "moderate rain":
+            case "very heavy rain":
+            case "heavy intensity rain":
                 return R.drawable.ic_rain;
-            case "Clear":
+            case "sky is clear":
                 return R.drawable.ic_clear;
-            case "Scattered Clouds":
+            case "scattered clouds":
                 return R.drawable.ic_light_clouds;
-            case "Broken Clouds":
+            case "broken clouds":
+            case "overcast clouds":
                 return R.drawable.ic_cloudy;
-            case "Light Snow":
-            case "Heavy Snow":
-            case "Snow":
+            case "light snow":
+            case "heavy snow":
+            case "snow":
                 return R.drawable.ic_snow;
-            case "Fog":
+            case "fog":
                 return R.drawable.ic_fog;
-            case "Storm":
-            case "Sleet":
-            case "Tropical Storm":
+            case "storm":
+            case "sleet":
+            case "tropical storm":
             case "Hurricane":
                 return R.drawable.ic_storm;
             default:

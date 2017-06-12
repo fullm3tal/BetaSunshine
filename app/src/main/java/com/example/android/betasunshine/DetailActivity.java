@@ -136,7 +136,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         int resId = SunshineWeatherUtils.getLargeImageIdForWeather(detailDescription);
         String detailHigh = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MAX));
         String detailLow = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MIN));
-        String detailPressure = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_PRESSURE));
+        String detailPressure = data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_PRESSURE))+" hPa";
         String detailHumidity=data.getString(data.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_HUMIDITY));
 
         //        Filling data into the views
