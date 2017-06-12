@@ -27,7 +27,7 @@ public class PerformTasks {
             String getLocation = PreferencesSunshine.getPreferredLocation(context);
 
             try {
-                URL url = NetworkUtils.buildUrl(getLocation);
+                URL url = NetworkUtils.createUrl(getLocation);
                 String data = NetworkUtils.getJsonResponse(url);
                 ContentValues[] contentValues = JsonData.getStringFromJson(context, data);
                 String name = Thread.currentThread().getName();

@@ -38,8 +38,6 @@ public class JsonData {
             JSONArray jsonWeatherArray = jsonListObject.getJSONArray("weather");
             JSONObject jsonWeatherObject = jsonWeatherArray.getJSONObject(0);
 
-
-
             Calendar c = Calendar.getInstance();
             SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
             c.add(Calendar.DATE,i);

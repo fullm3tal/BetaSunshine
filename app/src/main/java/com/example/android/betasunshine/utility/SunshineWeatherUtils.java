@@ -15,6 +15,8 @@ public class SunshineWeatherUtils {
     public static String formatTemp(Context context, double temp) {
         String tempInString;
         long temperature = Math.round(temp);
+        temperature= (long) (temperature-273.15);
+
         if (PreferencesSunshine.isMetric(context)) {
             tempInString = String.valueOf(temperature);
             return tempInString + "\u2103";

@@ -1,6 +1,7 @@
 package com.example.android.betasunshine.utility;
 
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,31 +16,24 @@ import java.util.Scanner;
 
 public class NetworkUtils {
 
-    public static final String URL_WEATHER = "https://andfun-weather.udacity.com/staticweather";
-    public static final String QUERY_PARAM="q";
-    public static final String QUERY_FORMAT="mode";
-    public static final String QUERY_UNIT="units";
-    public static final String QUERY_FORMAT_VALUE="json";
-    public static final String QUERY_UNIT_VALUE="metric";
-    public static final String QUERY_DAYS="cnt";
-    public static final int days=14;
+    public static final String URL_WEATHER="http://api.openweathermap.org/data/2.5/forecast/daily";
 
-    public static URL buildUrl(String urlString){
+    private static final String QUERY_PARAM = "q";
+    private static final String QUERY_DAYS = "cnt";
+    private static final String QUERY_APPID = "APPID";
+    private static final String api_key= "a06f6039312444ed8c4962158486addd";
+    private static final int days=16;
+
+    public static URL createUrl(String urlString) throws MalformedURLException{
+
         Uri builtUri=Uri.parse(URL_WEATHER).buildUpon()
-                .appendQueryParameter(QUERY_PARAM,urlString).
-                        appendQueryParameter(QUERY_FORMAT,QUERY_FORMAT_VALUE)
-                .appendQueryParameter(QUERY_UNIT,QUERY_UNIT_VALUE)
-                .appendQueryParameter(QUERY_DAYS,String.valueOf(days)).build();
-
-        URL url=null;
-        try {
-            url=new URL(builtUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
+                .appendQueryParameter(QUERY_PARAM,urlString)
+                .appendQueryParameter(QUERY_DAYS,String.valueOf(days)).appendQueryParameter(QUERY_APPID,api_key).build();
+        Log.v("hi",builtUri.toString());
+        URL url=new URL(builtUri.toString());
         return url;
     }
+
 
     public static String getJsonResponse(URL url) throws IOException{
         HttpURLConnection httpURLConnection= (HttpURLConnection)url.openConnection();
